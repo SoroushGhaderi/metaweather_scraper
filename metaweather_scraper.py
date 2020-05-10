@@ -3,13 +3,22 @@ import requests
 import json
 import pandas as pd
 
-year_start = input("Please input your year of start date():")
-month_start = input("Please input your month of start date:")
-day_start = input("Please input your day of start date:")
+print("Answer questions and complete them then you will recieve csv file")
 
-year_end = input("Please input your year of end date:")
-month_end = input("Please input your month of end date:")
-day_end = input("Please input your day of end date:")
+number_of_cities = int(input("Please enter number of cities that you want: "))
+
+list_of_cities = []
+for city in range(number_of_cities):
+    city_name = input("Please enter your city name: ")
+    list_of_cities.append(city_name)
+
+year_start = int(input("Please input your year of start date:"))
+month_start = int(input("Please input your month of start date:"))
+day_start = int(input("Please input your day of start date:"))
+
+year_end = int(input("Please input your year of end date:"))
+month_end = int(input("Please input your month of end date:"))
+day_end = int(input("Please input your day of end date:"))
 
 # From start_date to end_date create dates and add 1 day for creating list of dates
 def create_range_of_time(start_date, end_date, days= 1):
@@ -29,12 +38,12 @@ def id_of_city(name_of_city):
     id_city = json_of_response[0]["woeid"]
     return id_city
 
-start_date = datetime.date(2018, 1, 1)
-end_date = datetime.date(2018, 1, 5)
+start_date = datetime.date(year_start, month_start, day_start)
+end_date = datetime.date(year_end, month_end, day_end)
 list_of_dates_normal_format = create_range_of_time(start_date, end_date)
 list_of_dates_metawheather_format = [loop_date.strftime("%Y/%m/%d") for loop_date in list_of_dates_normal_format]
 
-list_of_cities = ["Chicago", "New York", "Washington"]
+
 # all_ids contains all id of cities in previous list
 all_ids = [id_of_city(city) for city in list_of_cities]
 
@@ -69,5 +78,5 @@ for (loop, value), key in zip(list_dict.items(), list_dict_of_frames):
 for final_dataframe in dict_of_dataframes:
     for frame in list_dict_of_frames:
         dict_of_dataframes[final_dataframe] = pd.concat(list_dict_of_frames[frame], ignore_index= True)
-        dict_of_dataframes[final_dataframe].to_csv("{}.csv".format(frame))
+        dict_of_dataframes[final_dataframe].to_csv("dataset/{}.csv".format(frame))
 
