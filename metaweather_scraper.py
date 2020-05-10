@@ -1,9 +1,10 @@
+import pandas as pd
 import datetime 
 import requests
 import json
-import pandas as pd
+import time 
 
-print("Answer questions and complete them then you will recieve csv file")
+print("Answer questions and complete them then you will recieve csv file, all data available from 2013 to now.")
 
 number_of_cities = int(input("Please enter number of cities that you want: "))
 
@@ -12,13 +13,15 @@ for city in range(number_of_cities):
     city_name = input("Please enter your city name: ")
     list_of_cities.append(city_name)
 
-year_start = int(input("Please input your year of start date:"))
-month_start = int(input("Please input your month of start date:"))
-day_start = int(input("Please input your day of start date:"))
+# Start Date
+year_start = int(input("Please input your year of start date: "))
+month_start = int(input("Please input your month of start date: "))
+day_start = int(input("Please input your day of start date: "))
 
-year_end = int(input("Please input your year of end date:"))
-month_end = int(input("Please input your month of end date:"))
-day_end = int(input("Please input your day of end date:"))
+# End Date
+year_end = int(input("Please input your year of end date: "))
+month_end = int(input("Please input your month of end date: "))
+day_end = int(input("Please input your day of end date: "))
 
 # From start_date to end_date create dates and add 1 day for creating list of dates
 def create_range_of_time(start_date, end_date, days= 1):
@@ -39,7 +42,7 @@ def id_of_city(name_of_city):
     return id_city
 
 start_date = datetime.date(year_start, month_start, day_start)
-end_date = datetime.date(year_end, month_end, day_end)
+end_date = datetime.date(year_end, month_end, day_end + 1)
 list_of_dates_normal_format = create_range_of_time(start_date, end_date)
 list_of_dates_metawheather_format = [loop_date.strftime("%Y/%m/%d") for loop_date in list_of_dates_normal_format]
 
@@ -58,6 +61,7 @@ for loop_ids, key in zip(all_ids, list_dict):
         response = requests.get(url)
         json_of_response = response.json()
         list_dict[key].append(json_of_response)
+        time.sleep(1)
 
 list_dict_of_frames = {}
 for item in list_of_cities:
@@ -68,7 +72,7 @@ dict_of_dataframes = {}
 for item in list_of_cities:
     dict_of_dataframes[item] = pd.DataFrame()
 
-# add every object of list to dataframe and put it into chicago_frames(all object in chicago_frames are DATAFRAME)
+# add every object of list to dataframe and put it into list of dataframes
 for (loop, value), key in zip(list_dict.items(), list_dict_of_frames):
     for number in range(len(list_dict[key])):
         dataframe = pd.DataFrame(value[number])
@@ -78,5 +82,5 @@ for (loop, value), key in zip(list_dict.items(), list_dict_of_frames):
 for final_dataframe in dict_of_dataframes:
     for frame in list_dict_of_frames:
         dict_of_dataframes[final_dataframe] = pd.concat(list_dict_of_frames[frame], ignore_index= True)
-        dict_of_dataframes[final_dataframe].to_csv("dataset/{}.csv".format(frame))
+        dict_of_dataframes[final_dataframe].to_csv("{}.csv".format(frame))
 
