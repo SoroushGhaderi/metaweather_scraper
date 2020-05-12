@@ -42,7 +42,7 @@ def id_of_city(name_of_city):
     return id_city
 
 start_date = datetime.date(year_start, month_start, day_start)
-end_date = datetime.date(year_end, month_end, day_end + 1)
+end_date = datetime.date(year_end, month_end, day_end)
 list_of_dates_normal_format = create_range_of_time(start_date, end_date)
 list_of_dates_metawheather_format = [loop_date.strftime("%Y/%m/%d") for loop_date in list_of_dates_normal_format]
 
@@ -62,6 +62,7 @@ for loop_ids, key in zip(all_ids, list_dict):
         json_of_response = response.json()
         list_dict[key].append(json_of_response)
         time.sleep(1)
+        print(str(loop_ids), str(loop_date))
 
 list_dict_of_frames = {}
 for item in list_of_cities:
