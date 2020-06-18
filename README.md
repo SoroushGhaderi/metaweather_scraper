@@ -1,3 +1,4 @@
+Metawheader :cloud_with_snow: :sun_behind_small_cloud: :cloud: :sunny: :star: :sun_behind_large_cloud:
 MetaWeather provides an API that delivers JSON over HTTPS for access to our data.
 This site provides methods as listed below: 
 
@@ -10,4 +11,5 @@ This site provides methods as listed below:
 
 example query record:
 
+URL:
 /api/location/search/?query=(query) /api/location/search/?lattlong=(latt),(long)
