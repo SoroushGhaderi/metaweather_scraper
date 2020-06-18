@@ -1,4 +1,5 @@
-Metawheader :cloud_with_snow: :sun_behind_small_cloud: :cloud: :sunny: :star: :sun_behind_large_cloud:
+Metaweather :cloud_with_snow: :sun_behind_small_cloud: :cloud: :sunny: :star: :sun_behind_large_cloud: :snowflake: :fog: :tornado:
+
 MetaWeather provides an API that delivers JSON over HTTPS for access to our data.
 This site provides methods as listed below: 
 
