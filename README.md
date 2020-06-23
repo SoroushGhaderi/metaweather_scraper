@@ -16,4 +16,5 @@ URL:
 /api/location/search/?query=(query) /api/location/search/?lattlong=(latt),(long)
 
 **After checking forcast results this script remove them and keep only date weathers.**
-update weather for every station is different some cities updated 3 hours and others may updated 6-8 every hours. 
+
+**update weather for every station is different some cities updated 3 hours and others may updated 6-8 every hours.**
